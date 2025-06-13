@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حاسبة العمر</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        input, select, button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        h1, h2 {
+            color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <h1>بسم الله الرحمن الرحيم</h1>
+    <h2>أحمد صابر عمر</h2>
+    <h2>حاسبة العمر</h2>
+
+    <label for="year">اختر سنة الميلاد:</label>
+    <select id="year">
+        <script>
+            for (let i = 1900; i <= 2024; i++) {
+                document.write(`<option value="${i}">${i}</option>`);
+            }
+        </script>
+    </select>
+
+    <label for="month">اختر شهر الميلاد:</label>
+    <select id="month">
+        <option value="1">يناير</option>
+        <option value="2">فبراير</option>
+        <option value="3">مارس</option>
+        <option value="4">أبريل</option>
+        <option value="5">مايو</option>
+        <option value="6">يونيو</option>
+        <option value="7">يوليو</option>
+        <option value="8">أغسطس</option>
+        <option value="9">سبتمبر</option>
+        <option value="10">أكتوبر</option>
+        <option value="11">نوفمبر</option>
+        <option value="12">ديسمبر</option>
+    </select>
+
+    <label for="day">اختر يوم الميلاد:</label>
+    <select id="day">
+        <script>
+            for (let i = 1; i <= 31; i++) {
+                document.write(`<option value="${i}">${i}</option>`);
+            }
+        </script>
+    </select>
+
+    <br>
+    <button onclick="calculateAge()">احسب العمر</button>
+    <div id="result"></div>
+
+    <script>
+        function calculateAge() {
+            const year = document.getElementById("year").value;
+            const month = document.getElementById("month").value;
+            const day = document.getElementById("day").value;
+
+            const today = new Date();
+            const birthDate = new Date(year, month - 1, day);
+
+            const diffTime = today - birthDate;
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+            let ageYears = today.getFullYear() - birthDate.getFullYear();
+            let ageMonths = today.getMonth() - birthDate.getMonth();
+            let ageDays = today.getDate() - birthDate.getDate();
+
+            if (ageDays < 0) {
+                ageMonths--;
+                ageDays += 30; // تقريبًا
+            }
+            if (ageMonths < 0) {
+                ageYears--;
+                ageMonths += 12;
+            }
+
+            document.getElementById("result").innerHTML = `
+                <p>عمرك: ${ageYears} سنة، ${ageMonths} شهر، ${ageDays} يوم.</p>
+                <p>عمرك بالأيام: ${diffDays} يوم.</p>
+            `;
+        }
+    </script>
+</body>
+</html>
